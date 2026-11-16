@@ -56,7 +56,7 @@ else:
     base = {r["seed"]: r for r in json.loads((HERE / "results_chain.json").read_text())["results"] if r["q"] == 0.85}
     rows = json.loads((HERE / "results_latch.json").read_text())["results"]
     S = {"chain_baseline": summary(list(base.values()))}
-    for c in ("latch", "residue"):
+    for c in ("latch_matched", "latch"):      # fixed after the batch: was the pre-matched list ("latch", "residue")
         S[c] = summary([r for r in rows if r["condition"] == c], base)
     (HERE / "summary_latch.json").write_text(json.dumps(S, indent=1) + "\n")
     print(json.dumps(S, indent=1))
