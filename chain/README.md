@@ -65,10 +65,45 @@ Across this repository and QualiaAstra, the same chain now exists in two forms:
 
 The physical body learns the structure that the engineered chain is given, and its middle step is something it imagines. What it does not yet do is carry the second step at full strength.
 
+## Follow-up: Gemini's fixes
+
+[Protocol, committed before the run](PROTOCOL_FIX.md) · [engine](engine_fix.py) · [runner](run_fix.py) · [analysis](analyze_fix.py) · [receipt](results_fix.json) · [summary](summary_fix.json)
+
+Gemini's explanation for the failing relation type: the A-units' strong prediction near B spreads through the prediction field into C's window and overwhelms the B-units' weak prediction of C. Two fixes, alone and together, on the same 16 bodies: **damped** (the prediction field's waves die out five times faster than the world's) and **minus A** (the branches learn to predict the world minus A's own echo). Before the run I recorded a competing prediction: the leak follows A's sign rather than the imagined B's, and another relation type with the same conflict already works, so removing the leak should fix the failing type only partly.
+
+| | Chain | Damped | Minus A | Both |
+|---|---:|---:|---:|---:|
+| Step one, fraction of Bayes | 0.69 | 0.56 | 0.69 | 0.57 |
+| Step two, fraction of Bayes | 0.24 | 0.25 | 0.25 | **0.43** |
+| Step two right sign | 13/16 | 13/16 | 14/16 | 14/16 |
+| Failing type (B copies A, C flips B) right sign | 1/4 | 1/4 | 2/4 | 2/4 |
+| Step two stronger than chain, paired | — | 10/16 | 8/16 | **12/16** (p = 0.04) |
+| Leak with B-units cut, signed to A | +0.027 | −0.014 | +0.011 | −0.013 |
+| Cutting B-units removes step two | 79% | 85% | 89% | 90% |
+| Reversing B flips step two | 14/16 | 12/16 | 13/16 | 11/16 |
+
+Step two by relation type (fraction of Bayes):
+
+| B → C relation | Chain | Damped | Minus A | Both |
+|---|---:|---:|---:|---:|
+| B copies A, C copies B | 0.15 | 0.17 | 0.16 | 0.14 |
+| **B copies A, C flips B** | **−0.11** | −0.01 | 0.00 | −0.09 |
+| B flips A, C copies B | 0.35 | 0.46 | 0.40 | 0.44 |
+| B flips A, C flips B | 0.43 | 0.39 | 0.42 | 0.53 |
+
+**Against the rule set beforehand, no fix confirms Gemini's explanation.** Each fix removes the leak (it goes from +0.027 to about zero), yet the failing type stays at or near zero. Step two did not reach 15 of 16 correct signs in any condition.
+
+**What did improve:** with both fixes together, step two rises from 0.24 to **0.43** of Bayes and is stronger in 12 of 16 bodies (one-sided sign test p = 0.04). Step one falls from 0.69 to 0.57, and the reversal test weakens (11 of 16). So damping and echo removal together help the relay in general, at some cost to the first step, without fixing the failing case.
+
+**What the pattern now says:** the weakness follows the *first* relation, not the leak. Wherever B copies A, step two is weak (about 0.15, or about zero when C flips B), whichever fix is used. Wherever B flips A, step two is solid (0.35 to 0.53). Why the first relation matters was not tested; it is the next thing to explain. My recorded prediction was right about the leak and the failing type, and too pessimistic about the combined fix (0.43 is below half of Bayes, but not far below).
+
 ## Reproduce
 
 ```sh
 python chain/run_chain.py --dev --workers 2   # development seeds, about 1.5 minutes
 python chain/run_chain.py --workers 2         # the batch, about 9 minutes on two cores
 python chain/analyze_chain.py
+python chain/run_fix.py --check               # engine_fix reproduces engine_chain exactly with both fixes off
+python chain/run_fix.py --workers 2           # Gemini's fixes, about 20 minutes on two cores
+python chain/analyze_fix.py
 ```
