@@ -124,6 +124,14 @@ So here a token's meaning is readable from its role in the shared expectation, a
 
 But the strength reached 0.45 of Bayes against the 0.5 required. The likely cause is that an imagined B wakes the B-units 10 to 23 frames later than a seen B in most bodies. The similarity body's imagination adds nothing at all: its imagined B is double counted, too long, and fires its B-units after C's window. A follow-up made the imagined B regenerate into the shape of a seen B once it crosses half a seen B's peak, like a local dendritic spike. The imagined clocks moved from up to 23 frames late to 0 to 4. Step two rose to 1.03 of Bayes, right sign 16/16, higher in 16/16 bodies. But two of its four pre-set conditions failed: clock match within 1 frame (10/16), and confidence carried in ping size (it made calibration worse). Near-Bayes is two errors cancelling, not calibration. [Full results](relay/README.md).
 
+## Fifth experiment: innovation
+
+[innovation/](innovation/README.md) tests Antti's rule: what a neuron expects cancels in the dendrite, and only the residue spikes. The B-units hear B minus the body's own prediction of it; with eyes closed they hear nothing, and the A → C path is kept as the prior.
+
+**Result (pre-registered).**
+- **What held:** with eyes closed the body is close to Bayes, 0.83 and 0.88 of the exact answer, and it follows the first step's reliability (ratio 0.61, Bayes 0.57). The relay body with a regenerated certain event overshoots to 1.8 times Bayes at the weaker reliability. The B-units fire 0 of 12 when the world agrees and 12 of 12 when it contradicts.
+- **What failed:** innovation beating relay + regen body by body (11 of 16, against a rule of 12), and a contradicting B flipping C (11 of 16, against 14; failure was predicted). In these units surprise is coded as delay: a bigger residue fires later. [Full results](innovation/README.md).
+
 ## Run
 
 ```sh
