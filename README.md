@@ -115,6 +115,15 @@ So here a token's meaning is readable from its role in the shared expectation, a
 
 **Result (pre-registered, shown): the residual learner screens A off, the similarity learner does not.** A's share of the C prediction is 0.011 (residual) against 0.445 (similarity), smaller in 16 of 16 bodies (p = 1.5·10⁻⁵). The residual learner is also calibrated (B's influence 0.90 of Bayes); the similarity learner double counts and predicts C at about twice its strength. The price is that the residual body, given A alone, predicts almost nothing about C: it relies on B, which is why the chain needs an imagined B. [Full results](screen/README.md).
 
+## Fourth experiment: relay
+
+[relay/](relay/README.md) joins screen/ and the chain in one body. Its B-units hear the real B with eyes open, where all learning happens, and the B the body imagines from A with eyes closed. **Result (pre-registered): three of four conditions hold, so not shown.**
+- With B seen, the body ignores the shortcut (A's share −0.02).
+- With A alone and eyes open, it predicts nothing about C (−0.03).
+- With eyes closed, the imagined B carries the prediction through weights learned only from seen B. The right sign appears in 16 of 16 bodies, with eyes closed beating eyes open in 16 of 16.
+
+But the strength reached 0.45 of Bayes against the 0.5 required. The likely cause is that an imagined B wakes the B-units 10 to 23 frames later than a seen B in most bodies. The similarity body's imagination adds nothing at all: its imagined B is double counted, too long, and fires its B-units after C's window. [Full results](relay/README.md).
+
 ## Run
 
 ```sh
