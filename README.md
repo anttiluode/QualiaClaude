@@ -1,5 +1,7 @@
 # QualiaClaude — Shared prediction
 
+Compressed version by Opus:  https://github.com/anttiluode/QualeX
+
 **Can one piece of evidence on a second sense make a population of units revise its expectation coherently, in places those units never sense? In this small wave body, yes, in all 16 bodies.** It passes all four conditions set before the run. It is a test of a proposed mechanism, not of experience.
 
 Antti Luode's idea · Astra's sharpening of it · design, code and write-up by Claude Opus 5.5 · 16 November 2026.
