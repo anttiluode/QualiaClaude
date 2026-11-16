@@ -1,0 +1,81 @@
+{
+ "bodies": {
+  "primary": 16,
+  "control_q05": 8
+ },
+ "intact": {
+  "step_one_fraction_of_bayes_median": 0.6889820466331689,
+  "step_two_fraction_of_bayes_median": 0.24138409334513677,
+  "step_one_correct_sign": 16,
+  "step_two_correct_sign": 13,
+  "median_abs_dB": 0.48228743264321816,
+  "median_abs_dC": 0.12683673036522602
+ },
+ "cut_B": {
+  "step_one_fraction_of_bayes_median": 0.6881232560184056,
+  "step_two_fraction_of_bayes_median": 0.0030429509732453133,
+  "step_one_correct_sign": 16,
+  "step_two_correct_sign": 9,
+  "median_abs_dB": 0.48168627921288387,
+  "median_abs_dC": 0.026539420901203453
+ },
+ "reverse_B": {
+  "step_one_fraction_of_bayes_median": 0.687250596389515,
+  "step_two_fraction_of_bayes_median": -0.16797878082751402,
+  "step_one_correct_sign": 16,
+  "step_two_correct_sign": 3,
+  "median_abs_dB": 0.48107541747266047,
+  "median_abs_dC": 0.0829020743258779
+ },
+ "cut_A": {
+  "step_one_fraction_of_bayes_median": 0.0,
+  "step_two_fraction_of_bayes_median": 0.0,
+  "step_one_correct_sign": 0,
+  "step_two_correct_sign": 0,
+  "median_abs_dB": 0.0,
+  "median_abs_dC": 0.0
+ },
+ "reverse_B_flips_step_two": 14,
+ "cut_B_reduction_of_median_abs_dC": 0.7907591844666504,
+ "cut_B_change_of_median_abs_dB": 0.0012464629796377143,
+ "attenuation_ratio_median": 0.2256965974971829,
+ "whole_window_intact": {
+  "step_one_fraction_of_bayes_median": 0.7116699867925711,
+  "step_two_fraction_of_bayes_median": 0.2571595672356043,
+  "step_two_correct_sign": 13
+ },
+ "control_q05": {
+  "median_abs_dB": 0.05562004252687845,
+  "median_abs_dC": 0.051273823997228185
+ },
+ "by_relation": {
+  "+1+1": {
+   "step_one": 0.7294398631844006,
+   "step_two": 0.1542179763275158
+  },
+  "+1-1": {
+   "step_one": 0.699150193288368,
+   "step_two": -0.11113422782289832
+  },
+  "-1+1": {
+   "step_one": 0.6172562063202995,
+   "step_two": 0.35323056286190674
+  },
+  "-1-1": {
+   "step_one": 0.6692791203279138,
+   "step_two": 0.4251058269428123
+  }
+ },
+ "claim_1": {
+  "1_step_one_sign_14_and_half_bayes": true,
+  "2_step_two_sign_13": true,
+  "3_cut_B_removes_70pct_of_step_two_keeps_step_one": true,
+  "4_reverse_B_flips_step_two_in_13": true,
+  "shown": true
+ },
+ "claim_2_bayes_like": {
+  "step_one_at_least_half": true,
+  "step_two_at_least_half": false,
+  "shown": false
+ }
+}

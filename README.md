@@ -102,6 +102,12 @@ So here a token's meaning is readable from its role in the shared expectation, a
 - **Robust beyond this setting.** One geometry, two worlds, deterministic, no noise, 16 bodies per condition.
 - **About feeling.** Nothing measured here could show that anything is experienced.
 
+## Second experiment: the chain
+
+[chain/](chain/README.md) joins this experiment with Astra's [QualiaAstra](https://github.com/anttiluode/QualiaAstra). There, an engineered chain of three belief units passes a clue two steps exactly. Here a wave body must **learn** two signed relations itself and pass a clue about A two steps, through its own *imagined* B, to an expectation of C. It uses two fields, world and prediction, because units listening to a field of anti-waves hear surprise, not expectation.
+
+**Result: a learned causal chain, yes; as strong as Bayes, no.** Step one reaches 0.69 of the Bayes strength with the right sign in 16 of 16 bodies. Step two has the right sign in 13 of 16, exactly the pre-set threshold, at 0.24 of Bayes. Cutting the imagined-B units removes 79% of it; reversing them flips it in 14 of 16. One of the four relation types mostly fails. [Full results](chain/README.md).
+
 ## Run
 
 ```sh
