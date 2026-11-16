@@ -55,6 +55,18 @@ The own contribution is computed exactly from a measured field kernel (it matche
 - **Not a test of relation types.** With separate receptors the system is exactly mirror-symmetric, so the four relation types give identical numbers for a given schedule. The 16 bodies differ by schedule only.
 - **Separate receptors were a design change.** In the shared world field no threshold separated right-sign from wrong-sign B-units; that is disclosed in the protocol. This tests the learning rule at C's tip, not sensing through a shared medium.
 
+## Follow-up: does the residual learner grow the shortcut first, then prune it?
+
+[`trajectory.py`](trajectory.py) re-runs the training of the first four bodies and records the weights after every episode ([`trajectory.json`](trajectory.json)). Its prediction was committed before the run: at the start nothing is explained, so the residue *is* the raw target and both rules should take the same first steps. The residual learner's A axon should then rise, peak within 40 episodes, and end below half its peak in at least 3 of 4 bodies.
+
+![trajectories](trajectory.png)
+
+**As written, the prediction failed: 1 of 4.** The shape is there; the timing was wrong. In all four residual bodies the A axon rises at first (peaks 0.15 to 0.34), alongside B, and then falls back and wanders around zero. Three of the four end below half their peak. But the peaks came at episodes 18, 65, 75 and 235, not all within 40. The fourth body's A weight was still drifting near +0.1 to +0.2 at the end.
+
+The similarity learner's A axon climbs to about 1.0 and stays there, while its B route overshoots toward 2.
+
+So there is a short, small "Hebbian childhood": the residual learner's first steps do grow the shortcut, to about a quarter of what the similarity learner grows. Once B carries C, the residual pruning removes it. That is the growth-then-pruning picture from the conversation, seen in the weights, with the timing looser than I said.
+
 ## Reproduce
 
 ```sh
@@ -62,4 +74,5 @@ python screen/run_screen.py --check          # kernel check and unit calibration
 python screen/run_screen.py --dev            # development bodies, about 25 minutes on two cores
 python screen/run_screen.py --workers 2      # the batch, about 35 minutes on two cores
 python screen/analyze_screen.py
+python screen/trajectory.py                  # weights after every episode, first four bodies
 ```
