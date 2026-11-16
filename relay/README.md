@@ -51,6 +51,31 @@ Lag is the same kind of failure as in [chain/CLOCK.md](../chain/CLOCK.md): a clo
 - **Graded imagination**, where each B-unit has its own threshold and the share of units that wake carries how sure the body is: median 0.22, right sign 12 of 16. It is weaker than normalized, as predicted, and does not reach Bayes. The idea that the share of waking units carries probability is not supported in this form.
 - **Similarity depends on the relation type.** Its shortcut is 1.0 to 2.2 of Bayes when C flips B, and 0.04 to 0.66 when C copies B. The residual body shows no pattern by type. The cause was not investigated (the imagined-B writes share the field with C's tip).
 
+## Follow-up: give the imagined B the shape of a seen B
+
+Protocol committed before the run: [`PROTOCOL_REGEN.md`](PROTOCOL_REGEN.md). Readout only, on the same trained bodies (their file's hash is in the receipt [`results_regen.json`](results_regen.json)); summary [`summary_regen.json`](summary_regen.json).
+
+**regen** is a regenerative event at B's place, the picture of a local dendritic spike taking over from a soft input. The B-units hear the imagined B until it first crosses half a seen B's peak. From that tick on, they hear the rest of a canonical seen-B wave of that sign. It is causal. **regen_amp** does the same, and also scales the B-units' outgoing ping by the body's own estimate of how sure it is of B (median 0.61; Bayes 0.70).
+
+| 16 residual bodies | normalized (relay/) | **regen** | regen_amp |
+|---|---:|---:|---:|
+| Eyes closed, A alone → C (of Bayes), median | 0.45 | **1.03** [0.91, 1.29] | 0.66 [0.45, 0.85] |
+| Right sign | 16/16 | **16/16** | 16/16 |
+| Higher than normalized, same body | — | **16/16** (p = 1.5·10⁻⁵) | |
+| Imagined-B clock lag vs a seen B, median per body | 1 to 23 frames | **0 to 4 frames** | same |
+| Regenerated event's onset error vs B's true time | — | −4 to +1 frames | |
+
+**Against the rule set beforehand: two of four hold, so the fix as a whole is not confirmed.**
+- **Rule 1 failed.** I asked for the B-units to run within 1 frame of a seen-B clock from the regenerated onset in 14 of 16 bodies; 10 met it. The rest run 2 to 4 frames late, because the soft rise before the crossing already feeds the slow traces. The lag still fell from a median of 13 frames to about 1.
+- **Rules 2 and 3 hold.** Regen beats normalized in every body, and step two now passes the threshold relay/ missed: 1.03 of Bayes, right sign 16 of 16.
+- **Rule 4 failed: the confidence payload made calibration worse (5 of 16).** I predicted regen would be about 1.16, overconfident, because a regenerated B is taken as certain. It came out near 1.0. Scaling by 0.61 then pulled it down to 0.66.
+
+**Why regen lands near Bayes, honestly.** It is two errors that roughly cancel. The relay passes B as certain, which overstates by 1/0.70 = 1.43. The B → C weight was learned at only 0.81 of Bayes. 1.43 × 0.81 = 1.16, and the small timing loss takes it to about 1.0. So "1.03 of Bayes" is not a calibrated body. Treat it as a body whose relay now carries the full learned B → C weight in step with C.
+
+**Similarity, reported.** Regen finally lets its relay act: C goes from 0.84 to 2.72 of Bayes, and regen_amp to 4.47, because its own estimate of B is 1.88 (Bayes 0.70). This is double counting on both routes, as predicted.
+
+So the timing diagnosis was right. Most of relay/'s shortfall was the imagined B's soft shape, and a regenerative event at B's place removes most of it. The part I got wrong is calibration. In this body, how sure the body is gets lost before it reaches C, and a ping-size payload did not put it back.
+
 ## Reproduce
 
 ```sh
@@ -58,4 +83,6 @@ python relay/run_relay.py --check      # kernel check and unit calibration (cach
 python relay/run_relay.py --dev        # development bodies
 python relay/run_relay.py --workers 2  # the batch, about 35 minutes on two cores
 python relay/analyze_relay.py
+python relay/run_regen.py              # regenerative imagined B, readout of the trained bodies (under a minute)
+python relay/analyze_regen.py
 ```

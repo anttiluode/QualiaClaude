@@ -122,7 +122,7 @@ So here a token's meaning is readable from its role in the shared expectation, a
 - With A alone and eyes open, it predicts nothing about C (−0.03).
 - With eyes closed, the imagined B carries the prediction through weights learned only from seen B. The right sign appears in 16 of 16 bodies, with eyes closed beating eyes open in 16 of 16.
 
-But the strength reached 0.45 of Bayes against the 0.5 required. The likely cause is that an imagined B wakes the B-units 10 to 23 frames later than a seen B in most bodies. The similarity body's imagination adds nothing at all: its imagined B is double counted, too long, and fires its B-units after C's window. [Full results](relay/README.md).
+But the strength reached 0.45 of Bayes against the 0.5 required. The likely cause is that an imagined B wakes the B-units 10 to 23 frames later than a seen B in most bodies. The similarity body's imagination adds nothing at all: its imagined B is double counted, too long, and fires its B-units after C's window. A follow-up made the imagined B regenerate into the shape of a seen B once it crosses half a seen B's peak, like a local dendritic spike. The imagined clocks moved from up to 23 frames late to 0 to 4. Step two rose to 1.03 of Bayes, right sign 16/16, higher in 16/16 bodies. But two of its four pre-set conditions failed: clock match within 1 frame (10/16), and confidence carried in ping size (it made calibration worse). Near-Bayes is two errors cancelling, not calibration. [Full results](relay/README.md).
 
 ## Run
 
