@@ -108,6 +108,13 @@ So here a token's meaning is readable from its role in the shared expectation, a
 
 **Result: a learned causal chain, yes; as strong as Bayes, no.** Step one reaches 0.69 of the Bayes strength with the right sign in 16 of 16 bodies. Step two has the right sign in 13 of 16, exactly the pre-set threshold, at 0.24 of Bayes. Cutting the imagined-B units removes 79% of it; reversing them flips it in 14 of 16. One of the four relation types mostly fails. A follow-up tested Gemini's two fixes (damping the prediction field, removing A's echo from what is learned): neither fixes the failing type, so the leak is not its cause, but both together raise step two to 0.43 of Bayes (stronger in 12 of 16 bodies). The weakness follows the first relation: wherever B copies A, step two is weak. A second follow-up found the cause. B's own wave re-charged the A-units' fading clocks, so they learned on a clock about one gap later than the one they ran on at test. A latch that keeps test timing but blocks the reset confirms this against the pre-set rule: step two has the right sign in 16 of 16 bodies (the failing type in 4 of 4) and rises to 0.32 of Bayes, still below half. [Full results](chain/README.md).
 
+
+## Third experiment: screening off
+
+[screen/](screen/README.md) asks the question Sol's Gate 4 tie left open: does a branch learn to explain **what the others leave**, or to explain the world **on its own**? C's tip gets two candidate axons: a direct one from A, and one from the real B. The world is Markov, so the correct weight on the direct A axon is zero, even though A correlates with C at 0.49. Both rules run on the same node; they differ only in whether a branch hears the shared residue or only its own contribution.
+
+**Result (pre-registered, shown): the residual learner screens A off, the similarity learner does not.** A's share of the C prediction is 0.011 (residual) against 0.445 (similarity), smaller in 16 of 16 bodies (p = 1.5·10⁻⁵). The residual learner is also calibrated (B's influence 0.90 of Bayes); the similarity learner double counts and predicts C at about twice its strength. The price is that the residual body, given A alone, predicts almost nothing about C: it relies on B, which is why the chain needs an imagined B. [Full results](screen/README.md).
+
 ## Run
 
 ```sh
