@@ -97,6 +97,40 @@ Step two by relation type (fraction of Bayes):
 
 **What the pattern now says:** the weakness follows the *first* relation, not the leak. Wherever B copies A, step two is weak (about 0.15, or about zero when C flips B), whichever fix is used. Wherever B flips A, step two is solid (0.35 to 0.53). Why the first relation matters was not tested; it is the next thing to explain. My recorded prediction was right about the leak and the failing type, and too pessimistic about the combined fix (0.43 is below half of Bayes, but not far below).
 
+## Follow-up 2: the clock is reset by its own target
+
+[`CLOCK.md`](CLOCK.md) has the diagnosis and [`PROTOCOL_LATCH.md`](PROTOCOL_LATCH.md) the rule, both committed before the batch.
+
+**What was wrong.** The A-units are fading-trace clocks that listen to the world. When B has A's sign, B's own wave reaches their listening point and re-charges the slow ones before they fire, so their fade starts over from B. In the trained chain bodies, 6 to 9 of the 12 same-sign A-units fire 31 to 39 frames later with the full world than with A alone. In every `ρ1 = −1` body, none move: the opposite-sign B cannot reach them through half-wave rectified input. So wherever B copies A, the A branches learned on one clock and are used at test on another, about one gap earlier.
+
+**The fix.** A **matched latch**: once a trace has armed and begun to fall, its input is closed until it fires. Release levels are reset so that, with A alone, every A-unit fires on the same tick as before (0 to 1 frame difference). Test clocks are unchanged; only their resetting is removed.
+
+| 16 primary bodies, staged readout | Chain | Matched latch | Latch (raw, no rule) |
+|---|---:|---:|---:|
+| A-units moved 10+ frames in training (`ρ1 = +1`) | 6 to 9 | **0** in 8/8 | 0 in 8/8 |
+| Step one, fraction of Bayes (median) | 0.69 | 0.68 | 0.76 |
+| Step two, fraction of Bayes (median) | 0.24 | **0.32** | 0.26 |
+| Step two right sign | 13/16 | **16/16** | 16/16 |
+| Failing type `(+1,−1)` right sign | 1/4 | **4/4** | 4/4 |
+| `ρ1 = +1` step two stronger than chain, paired | — | **8/8** (p = 0.004) | 7/8 |
+| Cutting B-units removes step two | 79% | 89% | 83% |
+| Reversing B flips step two | 14/16 | 15/16 | 15/16 |
+
+| B → C relation | Chain | Matched latch | Latch (raw) |
+|---|---:|---:|---:|
+| B copies A, C copies B | 0.15 | 0.28 | 0.33 |
+| B copies A, C flips B | −0.11 | **0.15** | 0.10 |
+| B flips A, C copies B | 0.35 | 0.33 | 0.24 |
+| B flips A, C flips B | 0.43 | 0.40 | 0.35 |
+
+**Against the rule set beforehand, the diagnosis is confirmed** (all five conditions). Every unit in every latched body now fires on exactly the same tick in training as at test (checked: 0 frames for all A- and B-units). The failing type now has the right sign in all four bodies, step two has the right sign in all 16, and the `ρ1 = −1` bodies are essentially unchanged (0.40 to 0.36, inside the 0.1 I predicted).
+
+**What my predictions got wrong.** I expected `ρ1 = +1` step two to reach 0.35 to 0.45 and the median about 0.4; it reached 0.22 and 0.32. Step two stays below half of Bayes, as predicted, so chain/'s second claim (Bayes-like strength) is still **not** shown.
+
+**What is left.** With the clocks identical in training and test, `ρ1 = +1` bodies are still weaker than `ρ1 = −1` (0.22 against 0.36), so the clock was the cause of the sign failures but not of all the weakness. That remainder is not explained. The combination not yet tried is the latch together with Gemini's two fixes, which alone raised step two to 0.43.
+
+The residue version (A-units hear world minus prediction, the apical idea) was tried on development bodies only. It did not stop the reset, because the imagined B is too weak to cancel the real one, so it was not taken to the batch. One post-batch fix is disclosed: `analyze_latch.py` still listed the conditions from before the matched latch was added (`"latch", "residue"`). It was corrected to `"latch_matched", "latch"`. The rule code itself was not touched.
+
 ## Reproduce
 
 ```sh
@@ -106,4 +140,8 @@ python chain/analyze_chain.py
 python chain/run_fix.py --check               # engine_fix reproduces engine_chain exactly with both fixes off
 python chain/run_fix.py --workers 2           # Gemini's fixes, about 20 minutes on two cores
 python chain/analyze_fix.py
+python chain/clock_diag.py                    # the clock diagnosis on the trained chain bodies
+python chain/run_latch.py --check             # engine_latch reproduces engine_chain exactly with options off
+python chain/run_latch.py --workers 2         # the latch batch, about 12 minutes on two cores
+python chain/analyze_latch.py
 ```
